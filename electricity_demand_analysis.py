@@ -60,7 +60,7 @@ def preprocess_data(weather_df, electricity_df):
     missing_percent = merged_df.isnull().mean() * 100
     print("Missing Data Percentage:\n", missing_percent)
 
-    merged_df.ffill(inplace=True)  # ✅ Fixed fillna warning
+    merged_df.ffill(inplace=True)  
 
     # Remove Duplicates
     merged_df.drop_duplicates(inplace=True)
@@ -76,7 +76,7 @@ def preprocess_data(weather_df, electricity_df):
     return merged_df
 
 def perform_eda(df):
-    # ✅ Convert all numeric columns to float
+    #  Convert all numeric columns to float
     numeric_cols = df.select_dtypes(include=['number']).columns
     df[numeric_cols] = df[numeric_cols].astype(float)
 
@@ -139,11 +139,11 @@ electricity_df = load_electricity_data(electricity_dir)
 if not weather_df.empty and not electricity_df.empty:
     final_df = preprocess_data(weather_df, electricity_df)
     final_df.to_csv(output_file, index=False)
-    print(f"✅ Processed data saved at {output_file}")
+    print(f" Processed data saved at {output_file}")
 
     perform_eda(final_df)
     final_df = detect_outliers(final_df)
     train_regression(final_df)
 
 else:
-    print("❌ No data processed. Check input directories.")
+    print(" No data processed. Check input directories.")
